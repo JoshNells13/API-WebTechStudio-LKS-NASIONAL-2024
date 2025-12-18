@@ -197,4 +197,4 @@ Authorization: Bearer <token>
 ---
 
 
-Project ini dirancang dengan standar industri dan mindset kompetisi nasional — **siap dinilai juri, siap dipakai industri** 💪
+
