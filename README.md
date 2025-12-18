@@ -1,61 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📘 Web Tech Studio – Course Platform API (MASIH DALAM PENGEMBANGAN MAAF KALAU SALAH HEHEHE)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Backend API untuk **platform pembelajaran online** berbasis **Laravel + Sanctum** yang dikembangkan sebagai **soal LKS Nasional 2024 bidang Web Technologies**.
 
-## About Laravel
+Proyek ini bernama **Web Tech Studio** dan berfokus pada penerapan REST API, autentikasi aman, serta manajemen course yang terstruktur sesuai standar kompetisi nasional.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🔐 Authentication
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Menggunakan **Laravel Sanctum** untuk autentikasi berbasis token.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Register
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```http
+POST /api/register
+```
 
-## Laravel Sponsors
+### Login
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```http
+POST /api/login
+```
 
-### Premium Partners
+### Logout *(Auth Required)*
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```http
+POST /api/logout
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 👤 User
 
-## Code of Conduct
+### Get Authenticated User
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```http
+GET /api/user
+```
 
-## Security Vulnerabilities
+**Middleware:** `auth:sanctum`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Get User Progress
 
-## License
+```http
+GET /api/users/progress
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Menampilkan progres course yang sedang atau sudah diikuti user.
+
+---
+
+## 📚 Courses
+
+### Get All Courses
+
+```http
+GET /api/courses
+```
+
+### Get Course Detail
+
+```http
+GET /api/courses/{slug}
+```
+
+### Add Course
+
+```http
+POST /api/courses
+```
+
+### Edit Course
+
+```http
+PUT /api/courses/{slug}
+```
+
+### Delete Course
+
+```http
+DELETE /api/courses/{slug}
+```
+
+---
+
+## 🧩 Course Sets (Module)
+
+### Add Set to Course
+
+```http
+POST /api/courses/{course}/sets
+```
+
+### Delete Set
+
+```http
+DELETE /api/courses/{course}/sets/{id}
+```
+
+---
+
+## 📖 Lessons
+
+### Add Lesson
+
+```http
+POST /api/lessons
+```
+
+### Delete Lesson
+
+```http
+DELETE /api/lessons/{id}
+```
+
+### Check Lesson Content
+
+```http
+POST /api/lessons/{id}/content/{idcontent}/check
+```
+
+Digunakan untuk validasi atau penandaan konten lesson.
+
+### Complete Lesson
+
+```http
+PUT /api/lessons/{id}/complete
+```
+
+Menandai lesson sebagai selesai oleh user.
+
+---
+
+## 📝 Course Registration
+
+### Register User to Course
+
+```http
+POST /api/courses/{slug}/register
+```
+
+User mendaftar ke course tertentu.
+
+---
+
+## 🛡 Middleware
+
+Semua endpoint (kecuali login & register) dilindungi oleh:
+
+```
+auth:sanctum
+```
+
+---
+
+## 🏆 Konteks LKS Nasional 2024
+
+Proyek **Web Tech Studio** dibuat sebagai bagian dari **Lomba Kompetensi Siswa (LKS) Nasional 2024** bidang **Web Technologies**.
+
+Fokus penilaian meliputi:
+
+* Perancangan REST API yang rapi dan konsisten
+* Implementasi autentikasi menggunakan token
+* Struktur kode Laravel yang scalable
+* Kesiapan integrasi dengan frontend modern
+
+---
+
+## 🧠 Tech Stack
+
+* **Laravel** (REST API)
+* **Laravel Sanctum** (Authentication)
+* **MySQL / PostgreSQL** (Database)
+* **Frontend Ready** (React / Next.js / Mobile)
+
+---
+
+## 📌 Catatan Developer
+
+* Gunakan header berikut untuk request terautentikasi:
+
+```http
+Authorization: Bearer <token>
+```
+
+---
+
+## 📚 Referensi Resmi
+
+* Dokumentasi resmi Laravel
+* Dokumentasi Laravel Sanctum
+* Best Practice REST API
+
+---
+
+
+Project ini dirancang dengan standar industri dan mindset kompetisi nasional — **siap dinilai juri, siap dipakai industri** 💪
