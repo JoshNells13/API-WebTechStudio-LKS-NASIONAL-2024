@@ -73,7 +73,7 @@ class SetController extends Controller
         if(!$Courses){
             return response([
                 'message' => 'Course Not Found'
-            ]);
+            ],404);
         }
 
 
@@ -82,7 +82,7 @@ class SetController extends Controller
         if(!$set){
             return response([
                 'message' => 'Set Not Found'
-            ]);
+            ],404);
         }
 
         $set->delete();
